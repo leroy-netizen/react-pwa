@@ -1,0 +1,12 @@
+FROM node:alpine
+WORKDIR /app
+COPY package.json ./
+# COPY package-lock.json ./
+# COPY ./ ./
+COPY  ["package.json", "pnpm-lock.yaml","./"]
+RUN npm install -g pnpm
+RUN pnpm install
+# RUN pnpm i
+COPY . .
+RUN pnpm build
+CMD ["pnpm", "run", "start"]
